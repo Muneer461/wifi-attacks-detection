@@ -13,10 +13,11 @@ extern "C" {
 #define CH_TIME 140        /* Scan time (in ms) per channel */
 #define PKT_RATE 5         /* Min. packets before it gets recognized as an attack */
 #define PKT_TIME 1         /* Min. interval (CH_TIME*CH_RANGE) before it gets recognized as an attack */
-const char* ssid = "Muneer";
-const char* password = "password";
-const char* apiToken = "a5t4q9bncb1mr5w6td7afs8f3f3cvo";
-const char* userToken = "uu5ytu1y99j5e5fd47z2dkuyrqqrgx";
+
+const char* ssid = “wifi_network“;
+const char* password = "wifi_network password";
+const char* apiToken = "your pushover api token";
+const char* userToken = "your pushover  user token";
 const char* pushoverApiEndpoint = "https://api.pushover.net/1/messages.json";
 const char *PUSHOVER_ROOT_CA = "-----BEGIN CERTIFICATE-----\n"
                  "MIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh\n"
