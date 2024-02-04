@@ -8,16 +8,16 @@ extern "C" {
 
 // ===== SETTINGS ===== //
 #define LED 2              /* LED pin (2=built-in LED) */
+#define RED_LED D5         /* Red LED pin */
 #define LED_INVERT true    /* Invert HIGH/LOW for LED */
 #define SERIAL_BAUD 115200 /* Baudrate for serial communication */
 #define CH_TIME 140        /* Scan time (in ms) per channel */
 #define PKT_RATE 5         /* Min. packets before it gets recognized as an attack */
 #define PKT_TIME 1         /* Min. interval (CH_TIME*CH_RANGE) before it gets recognized as an attack */
-
-const char* ssid = “wifi_network“;
-const char* password = "wifi_network password";
-const char* apiToken = "your pushover api token";
-const char* userToken = "your pushover  user token";
+const char* ssid = "here enter your wifi username";
+const char* password = "here enter your wifi password";
+const char* apiToken = "a5t4q9bncb1mr5w6td7afs8f3f3cvo";
+const char* userToken = "uu5ytu1y99j5e5fd47z2dkuyrqqrgx";
 const char* pushoverApiEndpoint = "https://api.pushover.net/1/messages.json";
 const char *PUSHOVER_ROOT_CA = "-----BEGIN CERTIFICATE-----\n"
                  "MIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh\n"
@@ -55,7 +55,7 @@ X509List cert(PUSHOVER_ROOT_CA);
 
 // Channels to scan on (US=1-11, EU=1-13, JAP=1-14)
 
-const short channels[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13/*,14*/ };
+const short channels[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13/*, 14*/ };
 
 // ===== Runtime variables ===== //
 
@@ -69,7 +69,7 @@ unsigned long update_time { 0 };  // Last update time
 
 unsigned long ch_time { 0 };      // Last channel hop time
 
-void connect(){
+void connect() {
 
   Serial.begin(115200);
 
@@ -113,7 +113,7 @@ void connect(){
 
   Serial.print(asctime(&timeinfo));
 
-  //Make HTTPS POST request to send notification
+  // Make HTTPS POST request to send notification
 
   if (WiFi.status() == WL_CONNECTED) {
 
@@ -211,7 +211,7 @@ void sniffer(uint8_t *buf, uint16_t len) {
 
   //byte* addr_b = &buf[22]; // second MAC address
 
-  // If captured packet is a deauthentication or dissassociaten frame
+  // If captured packet is a deauthentication or disassociation frame
 
   if (pkt_type == 0xA0 || pkt_type == 0xC0) {
 
@@ -227,6 +227,8 @@ void attack_started() {
 
   digitalWrite(LED, !LED_INVERT); // turn LED on
 
+  digitalWrite(RED_LED, HIGH); // turn RED LED on
+
   Serial.println("ATTACK DETECTED");
 
 }
@@ -235,11 +237,9 @@ void attack_stopped() {
 
   digitalWrite(LED, LED_INVERT); // turn LED off
 
+  digitalWrite(RED_LED, LOW); // turn RED LED off
+
   Serial.println("ATTACK STOPPED");
-
-  Serial.begin(115200);
-
-  ESP.restart();
 
 }
 
@@ -253,7 +253,11 @@ void setup() {
 
   pinMode(LED, OUTPUT); // Enable LED pin
 
+  pinMode(RED_LED, OUTPUT); // Enable RED LED pin
+
   digitalWrite(LED, LED_INVERT);
+
+  digitalWrite(RED_LED, LOW);
 
   WiFi.disconnect();                   // Disconnect from any saved or active WiFi connections
 
@@ -277,7 +281,7 @@ void loop() {
 
   // Update each second (or scan-time-per-channel * channel-range)
 
-  if (current_time - update_time >= (sizeof(channels)*CH_TIME)) {
+  if (current_time - update_time >= (sizeof(channels) * CH_TIME)) {
 
     update_time = current_time; // Update time variable
 
@@ -289,7 +293,7 @@ void loop() {
 
     } else {
 
-      if(attack_counter >= PKT_TIME) attack_stopped();
+      if (attack_counter >= PKT_TIME) attack_stopped();
 
       attack_counter = 0; // Reset attack counter
 
@@ -319,7 +323,7 @@ void loop() {
 
     // Get next channel
 
-    ch_index = (ch_index+1) % (sizeof(channels)/sizeof(channels[0]));
+    ch_index = (ch_index + 1) % (sizeof(channels) / sizeof(channels[0]));
 
     short ch = channels[ch_index];
 
