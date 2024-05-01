@@ -5,10 +5,12 @@
 <img src="https://iotdesignpro.com/sites/default/files/main-image/ESP8266-based-Webserver-to-Control-LED-from-Webpage.jpg">
 <img src="https://cdn.shortpixel.ai/spai/q_lossy+ret_img/https://i2.wp.com/www.electroniclinic.com/wp-content/uploads/2020/06/NodeMCU_PWM_Pins.png?w=1281&ssl=1" width="300" height="200">
 <h2> requirements  </h2>
-<p>eps8266 MCU node : https://shorturl.at/cirP4 </p> 
+<h3>Here sample video</h3>
+<p>make same As it is in the video but change the code as I given and a change just wifi username and password and compile the code in Ardino and inject to ESP8266 module </p>
+<p>eps8266 MCU node : https://arduino.esp8266.com/stable/package_esp8266com_index.json </p> 
 <p>usb cable</p>
-<p> arduino software : https://shorturl.at/cvOW6 </p> 
+<p> arduino software : https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.2_Windows_64bit.exe </p> 
 
-<h3>Disclaimer</h3>
+<h4>Disclaimer</h4>
 <p>This project is a proof of concept for testing and educational purposes only. Neither the ESP8266 nor its SDK was meant or built for such purposes. Bugs can occur! Use it only against your own networks and devices!</p>
 <p>Please check the legal regulations in your country before using it. We don't take any responsibility for what you do with this program.</p>
